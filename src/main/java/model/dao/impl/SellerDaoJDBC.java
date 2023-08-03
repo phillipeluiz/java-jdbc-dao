@@ -1,15 +1,14 @@
 package model.dao.impl;
 
+import com.mysql.cj.protocol.Resultset;
 import db.DB;
 import db.DbException;
 import model.dao.SellerDao;
 import model.entities.Department;
 import model.entities.Seller;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javax.xml.transform.Result;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +23,48 @@ public class SellerDaoJDBC  implements SellerDao {
     }
 
     @Override
-    public void insert(Seller department) {
+    public Integer insert(Seller seller) {
+        Integer id = null;
+        PreparedStatement st = null;
+        try {
+            st = conn.prepareStatement(
+                "INSERT INTO seller " +
+                   "(Name, Email, BirthDate, BaseSalary, DepartmentId) " +
+                        "VALUES (?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+
+           st.setString(1, seller.getName());
+           st.setString(2, seller.getEmail());
+           st.setDate(3, new java.sql.Date(seller.getBirthDate().getTime()) );
+           st.setDouble(4, seller.getBaseSalary());
+           st.setInt(5, seller.getDepartment().getId());
+
+
+           int rowsAffected = st.executeUpdate();
+
+           if (rowsAffected > 0)
+           {
+               ResultSet rs = st.getGeneratedKeys();
+               while (rs.next())
+               {
+                   id = rs.getInt(1);
+               }
+               DB.closeResultset(rs);
+           }
+           else
+           {
+              throw new DbException("0 Rows affected. Error when inserted");
+           }
+
+            return  id;
+
+        }
+        catch (SQLException e)
+        {
+            throw new DbException(e.getMessage());
+        }
+        finally {
+            DB.closeStatement(st);
+        }
 
     }
 

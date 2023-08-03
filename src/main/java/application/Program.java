@@ -32,5 +32,11 @@ public class Program {
             System.out.println(item);
         }
 
+        System.out.println("\n ==== Teste 4: insert ============");
+        Department dep = new Department(2, null);
+        Seller sellerNew = new Seller(0,"Phillipe", "phillipe@email.com", new Date(), 15000.00, dep );
+        Integer id = sellerDao.insert(sellerNew);
+        System.out.println("Registro inserido com sucesso. Id: " + id);
+
     }
 }
