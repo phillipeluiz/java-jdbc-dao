@@ -38,5 +38,11 @@ public class Program {
         Integer id = sellerDao.insert(sellerNew);
         System.out.println("Registro inserido com sucesso. Id: " + id);
 
+        System.out.println("\n ==== Teste 5: Update ============");
+        seller = sellerDao.findById(3);
+        sellerDao.update(seller);
+        System.out.println("Registro atualizado com sucesso.");
+
+
     }
 }

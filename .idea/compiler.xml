@@ -9,8 +9,5 @@
         <module name="java-jdbc-dao" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="java-jdbc-dao" target="17" />
-    </bytecodeTargetLevel>
   </component>
 </project>

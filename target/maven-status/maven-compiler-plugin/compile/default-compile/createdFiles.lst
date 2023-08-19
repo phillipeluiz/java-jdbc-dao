@@ -1,5 +1,10 @@
 db/DbIntegrityException.class
-db/DB.class
 model/entities/Department.class
-db/DbException.class
 application/Program.class
+db/DB.class
+model/dao/DaoFactory.class
+db/DbException.class
+model/dao/DepartmentDao.class
+model/dao/impl/SellerDaoJDBC.class
+model/dao/SellerDao.class
+model/entities/Seller.class

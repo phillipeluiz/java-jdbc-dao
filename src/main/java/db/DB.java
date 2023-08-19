@@ -15,12 +15,15 @@ public class DB {
         if (conn == null)
         {
             try {
+
+                //Class.forName("com.mysql.jdbc.Driver");
+
+
                 Properties props = loadProperties();
                 String url = props.getProperty("dburl");
                 conn = DriverManager.getConnection(url, props);
             }
-            catch (SQLException e )
-            {
+            catch (SQLException e ) {
                 throw new DbException(e.getMessage());
             }
 
