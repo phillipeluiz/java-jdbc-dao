@@ -7,10 +7,13 @@ import model.entities.Seller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 
 public class Program {
 
     public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
 
         SellerDao sellerDao = DaoFactory.createSellerDao();
 
@@ -32,16 +35,31 @@ public class Program {
             System.out.println(item);
         }
 
-        System.out.println("\n ==== Teste 4: insert ============");
-        Department dep = new Department(2, null);
-        Seller sellerNew = new Seller(0,"Phillipe", "phillipe@email.com", new Date(), 15000.00, dep );
-        Integer id = sellerDao.insert(sellerNew);
-        System.out.println("Registro inserido com sucesso. Id: " + id);
+        System.out.println("Deseja inserir o registro novamente? (y/n)");
+        String resposta= sc.next();
+        if (resposta.equals("y")) {
+            System.out.println("\n ==== Teste 4: insert ============");
+            Department dep = new Department(2, null);
+            Seller sellerNew = new Seller(0, "Phillipe", "phillipe@email.com", new Date(), 15000.00, dep);
+            Integer id = sellerDao.insert(sellerNew);
+            System.out.println("Registro inserido com sucesso. Id: " + id);
+        }
 
         System.out.println("\n ==== Teste 5: Update ============");
         seller = sellerDao.findById(3);
         sellerDao.update(seller);
         System.out.println("Registro atualizado com sucesso.");
+
+        System.out.println("Indique o código a ser removido, para ignorar digite 0 (zero)");
+        Integer idSeller = sc.nextInt();
+        if (idSeller >0)
+        {
+            System.out.println("\n ==== Teste 6: Delete  ============");
+            sellerDao.deleteById(idSeller);
+            System.out.println("Registro deletado com sucesso.");
+        }
+
+
 
 
     }
